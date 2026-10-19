@@ -1,0 +1,48 @@
+name: Update profile stars
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/update-stars.yml'
+      - 'scripts/update_stars.py'
+      - 'scripts/test_update_stars.py'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: profile-star-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+      - name: Test counting and SVG updates
+        run: python3 -m unittest discover -s scripts -p 'test_*.py' -v
+      - name: Fetch stars and refresh SVG
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PROFILE_OWNER: ${{ github.repository_owner }}
+        run: python3 scripts/update_stars.py
+      - name: Commit refreshed card
+        run: |
+          if git diff --quiet -- assets/stars.svg; then
+            echo 'Star card is already up to date.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- assets/stars.svg
+          git commit -m 'chore: refresh profile star count'
+          git push origin HEAD:main
