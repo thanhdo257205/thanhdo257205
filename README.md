@@ -1,4 +1,4 @@
-<h1 align="center">Hi there, I'm Thanh Do (Đỗ Hoàn Thành) 👋</h1>
+<h1 align="center">Hi there, I'm Thanh Do </h1>
 
 ### 🐍 Snake Eating My Contributions
 
