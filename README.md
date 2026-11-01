@@ -1,7 +1,9 @@
 <h1 align="center">Hi there, I'm Thanh Do (Đỗ Hoàn Thành) 👋</h1>
 
 <p align="center">
-  <img src="https://komarev.com/ghpvc/?username=thanhdo257205&color=blueviolet&style=flat-square" alt="profile views" />
+  <a href="https://github.com/thanhdo257205?tab=repositories">
+    <img src="https://img.shields.io/github/stars/thanhdo257205?style=flat-square&logo=github&color=gold&label=Total%20Stars" alt="Total Stars" />
+  </a>
 </p>
 
 ### 🐍 Snake Eating My Contributions
